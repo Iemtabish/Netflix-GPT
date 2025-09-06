@@ -23,7 +23,7 @@ const toggleSignInForm = () => { {/*Ni smj aya ye code*/}
         <input type="text"  placeholder='Email or phone number' className="p-4 mb-8 w-full bg-black bg-opacity-70 text-white border border-white border-opacity-40 rounded"/>
         <input type="password"  placeholder='Password' className="p-4 mb-8 w-full bg-black bg-opacity-70 text-white border border-white border-opacity-40 rounded"/>
         <button className= "p-4 mt-3 bg-red-600 w-full rounded-lg" >"{isSigninForm? "Sign In" : "Sign Up"}"</button> {/*Ni smj aya ye code*/}
-        <p className='py-6 m-1 cursor-pointer' onClick={toggleSignInForm}>{isSigninForm? "New to Netflix ? Sign Up Now" : "Already Registered ? Sign In Now"}</p>
+        <p className='py-6 m-1 cursor-pointer hover:underline' onClick={toggleSignInForm}>{isSigninForm? "New to Netflix ? Sign Up Now" : "Already Registered ? Sign In Now"}</p>
        </form>
 
 
