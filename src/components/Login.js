@@ -7,20 +7,19 @@ import {
   updateProfile,
 } from "firebase/auth";
 import { auth } from "../utils/firebase";
-import { useNavigate } from "react-router-dom";
 import { useDispatch } from "react-redux";
 import { addUser } from "../utils/userSlice.js";
+import { USERAVATAR } from "../utils/constants.js";
 
 const Login = () => {
   const [isSigninForm, setisSigninform] = useState(true); /*Ni smj aya ye code*/
 
   const [errorMessege, setErrorMessege] = useState(null);
-  const navigate = useNavigate();
   const dispatch = useDispatch();
 
   const email = useRef(null);
   const password = useRef(null);
- const name = useRef(null); 
+  const name = useRef(null);
 
   const handleButtonClick = () => {
     const messege = checkValidData(email.current.value, password.current.value);
@@ -37,19 +36,25 @@ const Login = () => {
           const user = userCredential.user;
           updateProfile(user, {
             displayName: name.current.value,
-            photoURL: "https://media.licdn.com/dms/image/v2/D560BAQEGCuDrMnmfjw/company-logo_100_100/B56ZjwBd7sHMAU-/0/1756373575297/eliff_incorporation_logo?e=1759968000&v=beta&t=zOG6wwlWdG4JJfPMfRXpGREPxjanhxISaeCYyl5jcPM",
+            photoURL:USERAVATAR,
           })
             .then(() => {
-                    const {uid, email, displayName, photoURL} = auth.currentUser;
-                    dispatch(addUser({uid: uid, email: email, displayName:displayName, photoURL:photoURL}));
-                    
-              navigate("/browse");
+              const { uid, email, displayName, photoURL } = auth.currentUser;
+              dispatch(
+                addUser({
+                  uid: uid,
+                  email: email,
+                  displayName: displayName,
+                  photoURL: photoURL,
+                })
+              );
+
+            
             })
             .catch((error) => {
-              setErrorMessege(error.message);   
+              setErrorMessege(error.message);
             });
-          console.log(user);
-          navigate("/browse");
+          
         })
         .catch((error) => {
           const errorCode = error.code;
@@ -65,7 +70,6 @@ const Login = () => {
         .then((userCredential) => {
           const user = userCredential.user;
           console.log(user);
-          navigate("/browse");
         })
         .catch((error) => {
           const errorCode = error.code;
