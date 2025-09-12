@@ -8,11 +8,11 @@ const Body = () => {
   const appRouter = createBrowserRouter([
     {
       path: "/",
-      element: <Login/>
+      element: <Login/> //ROUTING
     },
     {
       path: "/browse",
-      element: <Browse/>
+      element: <Browse/> //ROUTING (npm install -D react-router-dom)
     }
   ]);
 
