@@ -1,25 +1,41 @@
-import useNowPlayingMovies from '../hooks/useNowPlayingMovies';
-import usePopularMovies from '../hooks/usePopularMovies';
-import useTopRatedMovies from '../hooks/useTopRatedMovies';
-import useUpcomingMovies from '../hooks/useUpcomingMovies';
-import Header from './Header';
-import MainContainer from './MainContainer';
-import SecondaryContainer from './SecondaryContainer';
-
+import { useSelector } from "react-redux";
+import useNowPlayingMovies from "../hooks/useNowPlayingMovies";
+import usePopularMovies from "../hooks/usePopularMovies";
+import useTopRatedMovies from "../hooks/useTopRatedMovies";
+import useUpcomingMovies from "../hooks/useUpcomingMovies";
+import GptSearch from "./GptSearch";
+import Header from "./Header";
+import MainContainer from "./MainContainer";
+import SecondaryContainer from "./SecondaryContainer";
+import { BG_URL } from "../utils/constants";
 
 const Browse = () => {
-useNowPlayingMovies();
-usePopularMovies();
-useTopRatedMovies();
-useUpcomingMovies();
+  const showGptSearch = useSelector(store => store.gpt.showGptSearch);
+  useNowPlayingMovies();
+  usePopularMovies();
+  useTopRatedMovies();
+  useUpcomingMovies();
 
   return (
     <div>
-      <Header/>
-      <MainContainer/>
-      <SecondaryContainer/>
+      <Header />
+      {showGptSearch ? (
+        <div className=" h-screen">
+          <img
+          className="absolute w-screen h-screen object-cover -z-10"
+          src={BG_URL}
+          alt="bg"
+        />
+        <GptSearch />
+        </div>
+      ) : (
+        <>
+          <MainContainer />
+          <SecondaryContainer />
+        </>
+      )}
     </div>
-  )
-}
+  );
+};
 
 export default Browse;
